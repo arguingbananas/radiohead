@@ -43,7 +43,7 @@ while getopts "t:i:s:" opt; do
     case $opt in
         t) length_of_time="$OPTARG" ;;
         i) input_source="$OPTARG" ;;
-        s) station="$OPTARG" ;;
+        s) station_name="$OPTARG" ;;
         \?) echo "Invalid option: -$OPTARG" >&2; exit 1 ;;
     esac
 done
