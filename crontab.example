@@ -1,0 +1,2 @@
+55 7,8 * * 1-5 /usr/bin/bash -x $HOME/scripts/omd.sh -t 300 -i https://22833.live.streamtheworld.com/WKLBFMAACIHR.aac -s WKLB > $HOME/omd_WKLB.log 2>&1
+05 8 * * 1-5 /usr/bin/bash -x $HOME/scripts/omd.sh -t 300 -i https://26363.live.streamtheworld.com/WRORFMAACIHR_SC -s WROR > $HOME/omd_WROR.log 2>&1
