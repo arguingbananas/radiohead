@@ -36,7 +36,7 @@ done
 # Default values
 length_of_time=300
 input_source="https://22833.live.streamtheworld.com/WKLBFMAACIHR.aac"
-station=WKLBFM
+station_name=WKLBFM
 
 # Parse command-line arguments
 while getopts "t:i:s:" opt; do
@@ -49,7 +49,7 @@ while getopts "t:i:s:" opt; do
 done
 
 # Run ffmpeg command to record stream and log output
-XDG_RUNTIME_DIR=/run/user/$(id -u) ffmpeg -t "$length_of_time" -i "$input_source" "$parent_dir/streams/$station-$mydate.mp3" > "$parent_dir/logs/ffmpeg-$mydate.log" 2>&1
+XDG_RUNTIME_DIR=/run/user/$(id -u) ffmpeg -t "$length_of_time" -i "$input_source" "$parent_dir/streams/$station_name-$mydate.mp3" > "$parent_dir/logs/ffmpeg-$mydate.log" 2>&1
 if [ $? -ne 0 ]; then
     echo "ffmpeg command failed. Check the log at $parent_dir/logs/ffmpeg-$mydate.log for details."
     exit 1
