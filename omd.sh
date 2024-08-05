@@ -39,7 +39,7 @@ input_source="https://22833.live.streamtheworld.com/WKLBFMAACIHR.aac"
 station=WKLBFM
 
 # Parse command-line arguments
-while getopts "t:i:" opt; do
+while getopts "t:i:s:" opt; do
     case $opt in
         t) length_of_time="$OPTARG" ;;
         i) input_source="$OPTARG" ;;
