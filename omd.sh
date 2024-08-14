@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Function to create a directory and check for errors
 create_directory() {
     local dir_path="$1"
@@ -11,22 +9,19 @@ create_directory() {
 }
 
 # Default values
-length_of_time=300
-input_source="https://22833.live.streamtheworld.com/WKLBFMAACIHR.aac"
 parent_dir="$HOME/omd"
 station_name=""
+input_source=""
+length_of_time=300
 
 # Parse command-line arguments
-while getopts "t:i:p:s:" opt; do
+while getopts "s:t:p:" opt; do
     case $opt in
-        t) length_of_time="$OPTARG" ;;
-        i) input_source="$OPTARG" ;;
-        p) parent_dir="$OPTARG" ;;
         s) station_name="$OPTARG" ;;
-        \?) echo "Invalid option: -$OPTARG" >&2; exit 1 ;;
+        t) length_of_time="$OPTARG" ;;
+        p) parent_dir="$OPTARG" ;;
+        \?) echo "Invalid option: -$opt" >&2; exit 1 ;;
     esac
-done
-
 done
 
 # Check if station name is provided
@@ -35,11 +30,19 @@ if [ -z "$station_name" ]; then
     exit 1
 fi
 
+# Set input source based on station name
+case $station_name in
+    "WKLB") input_source="https://22833.live.streamtheworld.com/WKLBFMAACIHR.aac" ;;
+    "WROR") input_source="https://26363.live.streamtheworld.com/WRORFMAACIHR_SC" ;;
+    *) echo "Unknown station name: $station_name" >&2; exit 1 ;;
+esac
+
 # Get the current date and time components
-current_year=$(date +"%Y") # e.g., 2024
-current_month=$(date +"%m") # e.g., 04
-current_day=$(date +"%d") # e.g., 23
-current_time=$(date +"%H%M%S") # e.g., 143205
+current_date=$(date +"%Y %m %d %H%M%S")
+current_year=$(echo "$current_date" | awk '{print $1}')
+current_month=$(echo "$current_date" | awk '{print $2}')
+current_day=$(echo "$current_date" | awk '{print $3}')
+current_time=$(echo "$current_date" | awk '{print $4}')
 
 # Construct the full path for the output directories
 output_dir="${parent_dir}/${current_year}/${current_month}/${current_day}/${station_name}/${current_time}"
@@ -58,3 +61,8 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Recording completed successfully. Check the logs and recordings in ${output_dir}."
+
+# Get the current date and time components
+current_date=$(date +"%Y %m %d %H%M%S")
+current_year=$(echo "$current_date" | awk '{print $1}')
+current_month=$(echo "$current_date" | awk '{print $2}')
