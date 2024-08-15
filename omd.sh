@@ -22,7 +22,6 @@ create_directory() {
 
 # Default values
 base_dir="$HOME/omd"
-station_name=""
 length_of_time=300
 
 # Parse command-line arguments
@@ -37,13 +36,13 @@ while getopts "s:t:b:h" opt; do
 done
 
 # Check if station name is provided
-if [ -z "$station_name" ]; then
+if [ -z "${station_name:-}" ]; then
     echo "Station name is required. Use the -s option to provide it."
     usage
 fi
 
 # Ensure length_of_time is a valid number
-if ! [[ "$length_of_time" =~ ^[0-9]+$ ]]; then
+if ! [[ "${length_of_time}" =~ ^[0-9]+$ ]]; then
     echo "Length of time must be a valid number."
     usage
 fi
