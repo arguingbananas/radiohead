@@ -70,9 +70,9 @@ create_directory "${logs_dir}"
 create_directory "${streams_dir}"
 
 # Run ffmpeg command to record stream and log output
-XDG_RUNTIME_DIR=/run/user/$(id -u) ffmpeg -t "${length_of_time}" -i "${input_source}" "${streams_dir}/${station_name}-${current_time}.mp3" > "${logs_dir}/${station_name}-${current_time}.log" 2>&1
+XDG_RUNTIME_DIR=/run/user/$(id -u) ffmpeg -t "${length_of_time}" -i "${input_source}" "${streams_dir}/${station_name}-${current_date}.mp3" > "${logs_dir}/${station_name}-${current_date}.log" 2>&1
 if [ $? -ne 0 ]; then
-    echo "ffmpeg command failed. Check the log at ${logs_dir}/${station_name}-${current_time}.log for details."
+    echo "ffmpeg command failed. Check the log at ${logs_dir}/${station_name}-${current_date}.log for details."
     exit 1
 fi
 
